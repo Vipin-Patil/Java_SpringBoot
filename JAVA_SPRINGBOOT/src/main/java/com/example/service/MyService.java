@@ -3,13 +3,15 @@ package com.example.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.example.repository.*;
 
-
+import net.bytebuddy.implementation.bytecode.Throw;
 
 import com.example.model.*;
 
@@ -20,9 +22,19 @@ public class MyService {
 	DAO dao ;
 	
 	//For inserting Data//
+	@Transactional
 	public ResponseEntity<Model> insert(Model model) {
 		try {
-			dao.save(model) ; 
+			for(int i = 1 ; i < 100 ; i++) {
+				String name = "TestUser" + i;
+				String profession = "TestProfession" + i;
+				model.setName(name);
+				model.setProfession(profession);
+				dao.save(model);
+//				if(i == 99) {
+//					throw new Error();
+//				}
+			}
 			return new ResponseEntity<Model>(model,HttpStatus.CREATED);
 		}
 		catch(Exception e) {
