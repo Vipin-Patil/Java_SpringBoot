@@ -1,8 +1,11 @@
 package com.example.service;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import com.example.repository.*;
 
@@ -17,34 +20,39 @@ public class MyService {
 	DAO dao ;
 	
 	//For inserting Data//
-	public void insert(Model model) {
+	public ResponseEntity<Model> insert(Model model) {
 		dao.save(model) ; 
+		return new ResponseEntity<Model>(model,HttpStatus.CREATED);
 	}
 	
 	//For updating Data//
-	public void update(Model model) {
+	public ResponseEntity<Model> update(Model model) {
 		dao.save(model);
+		return new ResponseEntity<Model>(model,HttpStatus.ACCEPTED);
 	}
 	
 	//For Deleting by Data//
-	public void delete() {
+	public ResponseEntity<Void> deleteAll() {
 		dao.deleteAll();
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	//For Deleting Data by ID//
-	public void deletebyid(int id) {
+	public ResponseEntity<Void> deleteById(int id) {
 		dao.deleteById(id);
+		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	//For getting all data//
-	public List<Model> getalldata(){
-		List<Model> model = new ArrayList<Model>() ;
-		dao.findAll().forEach(model1 -> model.add(model1));
-		return model ;
+	public ResponseEntity<List<Model>> getAllData(){
+		List<Model> modelList = new ArrayList<Model>() ;
+		modelList = (List<Model>) dao.findAll();
+		return new ResponseEntity<List<Model>>(modelList,HttpStatus.OK);
 	}
 	
 	//For getting Data by id//
-	public Model findbyyid(int id){
-		return dao.findById(id).get() ;
+	public ResponseEntity<Model> findById(int id){
+		Model model = dao.findById(id).get();
+		return new ResponseEntity<Model>(model,HttpStatus.OK);
 	}
 }

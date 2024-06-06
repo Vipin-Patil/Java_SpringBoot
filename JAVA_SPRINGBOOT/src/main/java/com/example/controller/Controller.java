@@ -6,10 +6,12 @@ import com.example.service.*;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,38 +23,36 @@ public class Controller {
 	
 	//For inserting Data//
 	@PostMapping("/insert")
-	private Integer save(@RequestBody Model model) {
-		myservice.insert(model) ;
-		return model.getId() ;
+	private ResponseEntity<Model> save(@RequestBody Model model) {
+		return myservice.insert(model);
 	}
 	
 	//For updating Data//
-	@PostMapping("/update")
-	private Model update(@RequestBody Model model) {
-		myservice.insert(model);
-		return model ;
+	@PutMapping("/update")
+	private ResponseEntity<Model> update(@RequestBody Model model) {
+		return myservice.update(model);
 	}
 	//For Deleting Data//
 	@DeleteMapping("/deleteall")
-	private void delete(){
-		myservice.delete();
+	private ResponseEntity<Void> delete(){
+		return myservice.deleteAll();
 	}
 	
 	//For Deleting by ID//
 	@DeleteMapping("/deletebyid/{id}")
-	private void deletebyid(@PathVariable("id") int id ) {
-		myservice.deletebyid(id);
+	private ResponseEntity<Void> deletebyid(@PathVariable("id") int id ) {
+		return myservice.deleteById(id);
 	}
 	
 	//For getting all data//
 	@GetMapping("/getalldata")
-	private List<Model> getalldata(){
-		return myservice.getalldata() ;
+	private ResponseEntity<List<Model>> getAllData(){
+		return myservice.getAllData() ;
 	}
 	
 	//For getting Data by id//
 	@GetMapping("/findbyid/{id}")
-	private Model findbyid(@PathVariable("id") int id) {
-		return myservice.findbyyid(id);
+	private ResponseEntity<Model> findById(@PathVariable("id") int id) {
+		return myservice.findById(id);
 	}
 }
