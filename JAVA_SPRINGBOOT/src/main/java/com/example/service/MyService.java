@@ -21,38 +21,69 @@ public class MyService {
 	
 	//For inserting Data//
 	public ResponseEntity<Model> insert(Model model) {
-		dao.save(model) ; 
-		return new ResponseEntity<Model>(model,HttpStatus.CREATED);
+		try {
+			dao.save(model) ; 
+			return new ResponseEntity<Model>(model,HttpStatus.CREATED);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<Model>(model,HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	//For updating Data//
 	public ResponseEntity<Model> update(Model model) {
-		dao.save(model);
-		return new ResponseEntity<Model>(model,HttpStatus.ACCEPTED);
+		try {
+			dao.save(model) ; 
+			return new ResponseEntity<Model>(model,HttpStatus.CREATED);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<Model>(model,HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	//For Deleting by Data//
 	public ResponseEntity<Void> deleteAll() {
-		dao.deleteAll();
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		try {
+			dao.deleteAll();
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	//For Deleting Data by ID//
 	public ResponseEntity<Void> deleteById(int id) {
-		dao.deleteById(id);
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		try {
+			dao.deleteById(id);
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+		catch(Exception e){
+			return new ResponseEntity<Void>(HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	//For getting all data//
 	public ResponseEntity<List<Model>> getAllData(){
 		List<Model> modelList = new ArrayList<Model>() ;
-		modelList = (List<Model>) dao.findAll();
-		return new ResponseEntity<List<Model>>(modelList,HttpStatus.OK);
+		try {
+			modelList = (List<Model>) dao.findAll();
+			return new ResponseEntity<List<Model>>(modelList,HttpStatus.OK);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<List<Model>>(modelList,HttpStatus.BAD_REQUEST);
+		}
 	}
 	
 	//For getting Data by id//
 	public ResponseEntity<Model> findById(int id){
-		Model model = dao.findById(id).get();
-		return new ResponseEntity<Model>(model,HttpStatus.OK);
+		Model model = null;
+		try {
+			model = dao.findById(id).get();
+			return new ResponseEntity<Model>(model,HttpStatus.OK);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<Model>(model,HttpStatus.BAD_REQUEST);
+		}
 	}
 }
