@@ -23,36 +23,36 @@ public class Controller {
 	
 	//For inserting Data//
 	@PostMapping("/insert")
-	private ResponseEntity<Model> save(@RequestBody Model model) {
+	public ResponseEntity<Model> save(@RequestBody Model model) {
 		return myservice.insert(model);
 	}
 	
 	//For updating Data//
 	@PutMapping("/update")
-	private ResponseEntity<Model> update(@RequestBody Model model) {
+	public ResponseEntity<Model> update(@RequestBody Model model) {
 		return myservice.update(model);
 	}
 	//For Deleting Data//
 	@DeleteMapping("/deleteall")
-	private ResponseEntity<Void> delete(){
+	public ResponseEntity<Void> delete(){
 		return myservice.deleteAll();
 	}
 	
 	//For Deleting by ID//
 	@DeleteMapping("/deletebyid/{id}")
-	private ResponseEntity<Void> deletebyid(@PathVariable("id") int id ) {
+	public ResponseEntity<Void> deletebyid(@PathVariable("id") int id ) {
 		return myservice.deleteById(id);
 	}
 	
 	//For getting all data//
 	@GetMapping("/getalldata")
-	private ResponseEntity<List<Model>> getAllData(){
+	public ResponseEntity<List<Model>> getAllData(){
 		return myservice.getAllData() ;
 	}
 	
 	//For getting Data by id//
 	@GetMapping("/findbyid/{id}")
-	private ResponseEntity<Model> findById(@PathVariable("id") int id) {
+	public ResponseEntity<Model> findById(@PathVariable("id") int id) {
 		return myservice.findById(id);
 	}
 }
