@@ -12,9 +12,11 @@ import java.util.List;
 @org.springframework.stereotype.Service
 public class ServiceImpl implements Service {
 
+    @Autowired
+    FiegnClientMicro fiegnClientMicro;
+
     @Override
     public ResponseEntity<List<Model>> getDataMicro() {
-//        List<Model> dataList = (List<Model>) fiegnClientMicro.getAllData();
-        return new ResponseEntity<List<Model>>((List<Model>) null,HttpStatus.OK);
+        return fiegnClientMicro.getAllData();
     }
 }
